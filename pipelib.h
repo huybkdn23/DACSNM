@@ -14,9 +14,9 @@ const char DATA_OUTPUT_FILE[25] = "output.txt";
 void parentProcessing(int* fds) {
   char* inputString = malloc(sizeof(char) * INPUT_LENGTH);
   char outputString[INPUT_LENGTH];
-  
+
   inputString = readFile(DATA_INPUT_FILE);
-  // send 
+  // send
   write(*(fds + PIPE_WRITER_CODE), inputString, INPUT_LENGTH);
   wait(NULL);
   read(*(fds + PIPE_READER_CODE), outputString, INPUT_LENGTH);
@@ -43,8 +43,8 @@ void childProcessing(int* fds) {
   double result = expression(pipeDataInput);
   pipeDataOutput = doubleToString(result);
   printf("\n%f\n", result);
-  write(*(fds + PIPE_WRITER_CODE), pipeDataInput, INPUT_LENGTH);
-  
+  write(*(fds + PIPE_WRITER_CODE), pipeDataOutput, INPUT_LENGTH);
+
   close(*(fds + PIPE_READER_CODE));
   close(*(fds + PIPE_WRITER_CODE));
   exit(0);
